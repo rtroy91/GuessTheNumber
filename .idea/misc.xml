@@ -3,9 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/ASH-HOLE/AndroidStudioProjects/GuessTheNumber2/app/src/main/res/layout/activity_game.xml" value="0.38697916666666665" />
-        <entry key="..\:/Users/ASH-HOLE/AndroidStudioProjects/GuessTheNumber2/app/src/main/res/layout/activity_main.xml" value="0.3509963768115942" />
+        <entry key="..\:/Users/ASH-HOLE/AndroidStudioProjects/GuessTheNumber2/app/src/main/res/drawable/custom_button.xml" value="0.1145" />
+        <entry key="..\:/Users/ASH-HOLE/AndroidStudioProjects/GuessTheNumber2/app/src/main/res/drawable/custom_edittext.xml" value="0.1145" />
+        <entry key="..\:/Users/ASH-HOLE/AndroidStudioProjects/GuessTheNumber2/app/src/main/res/drawable/custom_spinner.xml" value="0.1" />
+        <entry key="..\:/Users/ASH-HOLE/AndroidStudioProjects/GuessTheNumber2/app/src/main/res/drawable/ic_baseline_person_outline_24.xml" value="0.1145" />
+        <entry key="..\:/Users/ASH-HOLE/AndroidStudioProjects/GuessTheNumber2/app/src/main/res/drawable/ic_gendericon.xml" value="0.1075" />
+        <entry key="..\:/Users/ASH-HOLE/AndroidStudioProjects/GuessTheNumber2/app/src/main/res/drawable/spinner_background.xml" value="0.122" />
+        <entry key="..\:/Users/ASH-HOLE/AndroidStudioProjects/GuessTheNumber2/app/src/main/res/layout/activity_game.xml" value="0.4667176740627391" />
+        <entry key="..\:/Users/ASH-HOLE/AndroidStudioProjects/GuessTheNumber2/app/src/main/res/layout/activity_main.xml" value="0.5" />
         <entry key="..\:/Users/ASH-HOLE/AndroidStudioProjects/GuessTheNumber2/app/src/main/res/layout/activity_splash_screen.xml" value="0.3509963768115942" />
+        <entry key="..\:/Users/ASH-HOLE/AndroidStudioProjects/GuessTheNumber2/app/src/main/res/layout/custom_spinner.xml" value="0.1" />
+        <entry key="..\:/Users/ASH-HOLE/AndroidStudioProjects/GuessTheNumber2/app/src/main/res/layout/custom_spinner_dropdown.xml" value="0.19746376811594202" />
+        <entry key="..\:/Users/ASH-HOLE/AndroidStudioProjects/GuessTheNumber2/app/src/main/res/layout/dialog_toohigh.xml" value="0.29739583333333336" />
+        <entry key="..\:/Users/ASH-HOLE/AndroidStudioProjects/GuessTheNumber2/app/src/main/res/layout/dialog_toolow.xml" value="0.2210144927536232" />
+        <entry key="..\:/Users/ASH-HOLE/AndroidStudioProjects/GuessTheNumber2/app/src/main/res/layout/spinner_style.xml" value="0.28396739130434784" />
       </map>
     </option>
   </component>
