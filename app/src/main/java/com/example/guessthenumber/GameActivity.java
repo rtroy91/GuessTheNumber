@@ -1,8 +1,10 @@
 package com.example.guessthenumber;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
@@ -23,7 +25,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView tvHint, tvName, tvInt, tvMax, tvDisplayDiff;
     private EditText etInput;
-    private Button btnGuess;
+    private Button btnGuess, btnNewGame, btnBack;
     private int numberToFind, numberTries;
     private ImageView ivZhongli;
 
@@ -38,7 +40,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         tvInt = (TextView) findViewById(R.id.tvInt);
         etInput = (EditText) findViewById(R.id.etInput);
         btnGuess = (Button) findViewById(R.id.btnGuess);
+        btnNewGame = (Button) findViewById(R.id.btnNewGame);
+        btnBack = (Button) findViewById(R.id.btnBack);
         btnGuess.setOnClickListener(this);
+        btnNewGame.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
 
         Intent intent = getIntent();
         String name, gender;
@@ -71,10 +77,24 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             tvDisplayDiff.setTextColor(Color.parseColor("#B22727"));
         }
     }
+
     @Override
     public void onClick(View view) {
         if (view == btnGuess) {
-            validate();
+            if(etInput.getText().toString().trim().isEmpty()){
+                Toast.makeText(this, "Please Input a Number", Toast.LENGTH_SHORT).show();
+            }else{
+                validate();
+            }
+
+        }
+        Intent newgame = getIntent();
+        if(view == btnNewGame){
+            startActivity(newgame);
+        }
+        Intent back = new Intent(GameActivity.this, MainActivity.class);
+        if(view == btnBack){
+            startActivity(back);
         }
     }
 
@@ -82,6 +102,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         int n = Integer.parseInt(etInput.getText().toString());
         numberTries++;
         ivZhongli = (ImageView) findViewById(R.id.ivZhongli);
+
+
+
         final Dialog dialog = new Dialog(GameActivity.this);
 
         Handler handler = new Handler();
@@ -97,6 +120,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             ivZhongli.setVisibility(View.INVISIBLE);
             int MAX_DIFF = Integer.parseInt(tvMax.getText().toString());
             newGame(MAX_DIFF);
+            btnNewGame.setVisibility(View.VISIBLE);
+            btnBack.setVisibility(View.VISIBLE);
+
 
 
         } else if (n > numberToFind) {
@@ -118,5 +144,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         etInput.setText("");
         numberTries = 0;
     }
+
 }
+
 
