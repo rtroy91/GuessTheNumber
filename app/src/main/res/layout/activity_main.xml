@@ -51,6 +51,7 @@
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:background="#FDFDFD"
+        android:paddingStart="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -180,5 +181,19 @@
         android:textSize="20sp"
         android:visibility="invisible"
         tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="36dp"
+        android:layout_height="40dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.613"
+        app:srcCompat="@drawable/ic_baseline_arrow_drop_down_24"
+        tools:visibility="invisible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,13 +1,13 @@
 package com.example.guessthenumber;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Handler;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,17 +23,21 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     final Random random = new Random();
 
-    private TextView tvHint, tvName, tvInt, tvMax, tvDisplayDiff;
+    private TextView tvGuessDisplay, tvName, tvInt, tvMax, tvDisplayDiff, textView4, textView8, textView9;
     private EditText etInput;
     private Button btnGuess, btnNewGame, btnBack;
-    private int numberToFind, numberTries;
+    private int numberToFind, numberTries, maxTries;
     private ImageView ivZhongli;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        tvHint = (TextView) findViewById(R.id.tvHint);
+
+        textView4 = (TextView) findViewById(R.id.textView4);
+        textView8 = (TextView) findViewById(R.id.textView8);
+        textView9 = (TextView) findViewById(R.id.textView9);
+        tvGuessDisplay = (TextView) findViewById(R.id.tvGuessDisplay);
         tvDisplayDiff = (TextView) findViewById(R.id.tvDisplayDiff);
         tvName = (TextView) findViewById(R.id.tvName);
         tvMax = (TextView) findViewById(R.id.tvMax);
@@ -51,28 +55,33 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         name = intent.getStringExtra("NAME");
         gender = intent.getStringExtra("GENDER");
 
+        //Display Honorific and Names
         if (gender.equalsIgnoreCase("Male")) {
             tvName.setText("WELCOME! Mr. " + name);
         } else if (gender.equalsIgnoreCase("Female")) {
             tvName.setText("WELCOME! Ms. " + name);
         }
-
         String str = intent.getStringExtra("DIFFICULTY");
         tvMax.setText(str);
+
         int MAX_DIFF = Integer.parseInt(tvMax.getText().toString());
         newGame(MAX_DIFF);
         tvInt.setText(Integer.toString(numberToFind));
 
-        if(MAX_DIFF == 50){
+        if (MAX_DIFF == 50) {
+            maxTries = 25;
             tvDisplayDiff.setText("EASY");
             tvDisplayDiff.setTextColor(Color.parseColor("#2980B9"));
-        }else if(MAX_DIFF == 250){
+        } else if (MAX_DIFF == 250) {
+            maxTries = 20;
             tvDisplayDiff.setText("NORMAL");
             tvDisplayDiff.setTextColor(Color.parseColor("#229954"));
-        }else if(MAX_DIFF == 500){
+        } else if (MAX_DIFF == 500) {
+            maxTries = 15;
             tvDisplayDiff.setText("HARD");
             tvDisplayDiff.setTextColor(Color.parseColor("#D35400"));
-        }else{
+        } else {
+            maxTries = 10;
             tvDisplayDiff.setText("EXTREME");
             tvDisplayDiff.setTextColor(Color.parseColor("#B22727"));
         }
@@ -81,32 +90,30 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view == btnGuess) {
-            if(etInput.getText().toString().trim().isEmpty()){
+            if (etInput.getText().toString().trim().isEmpty()) {
                 Toast.makeText(this, "Please Input a Number", Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 validate();
             }
-
         }
-        Intent newgame = getIntent();
-        if(view == btnNewGame){
-            startActivity(newgame);
+        Intent newGame = getIntent();
+        if (view == btnNewGame) {
+            startActivity(newGame);
         }
         Intent back = new Intent(GameActivity.this, MainActivity.class);
-        if(view == btnBack){
+        if (view == btnBack) {
             startActivity(back);
+            finish();
         }
     }
 
     private void validate() {
         int n = Integer.parseInt(etInput.getText().toString());
-        numberTries++;
         ivZhongli = (ImageView) findViewById(R.id.ivZhongli);
-
-
 
         final Dialog dialog = new Dialog(GameActivity.this);
 
+        //Function to Dismiss Pop up Window Automatically
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -115,36 +122,57 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }, 2000);
 
         if (n == numberToFind) {
-            Toast.makeText(this, "Congratulations ! You found the number " + numberToFind +
-                    " in " + numberTries + " tries", Toast.LENGTH_SHORT).show();
+            dialog.setContentView(R.layout.dialog_congrats);
+            dialog.show();
+
             ivZhongli.setVisibility(View.INVISIBLE);
-            int MAX_DIFF = Integer.parseInt(tvMax.getText().toString());
-            newGame(MAX_DIFF);
             btnNewGame.setVisibility(View.VISIBLE);
             btnBack.setVisibility(View.VISIBLE);
+            textView4.setVisibility(View.INVISIBLE);
+            tvGuessDisplay.setVisibility(View.INVISIBLE);
 
+            textView8.setText("YAY! YOU'VE GUESSED THE NUMBER CORRECTLY!");
+            textView9.setText("NUMBER OF TRIES: " + numberTries + "/" + maxTries);
 
+            int MAX_DIFF = Integer.parseInt(tvMax.getText().toString());
+            newGame(MAX_DIFF);
 
-        } else if (n > numberToFind) {
-            tvHint.setText("TOO HIGH");
+        } else if (n > numberToFind && numberTries != maxTries) {
+            numberTries++;
+            MediaPlayer music = MediaPlayer.create(GameActivity.this, R.raw.toohigh);
+            music.start();
             dialog.setContentView(R.layout.dialog_toohigh);
             dialog.show();
-
-        } else if (n < numberToFind) {
-            tvHint.setText("TOO LOW");
+        } else if (n < numberToFind && numberTries != maxTries) {
+            numberTries++;
+            MediaPlayer music = MediaPlayer.create(GameActivity.this, R.raw.toolow);
+            music.start();
             dialog.setContentView(R.layout.dialog_toolow);
             dialog.show();
+
         }
+        if (maxTries == numberTries) {
+            dialog.setContentView(R.layout.dialog_failed);
+            dialog.show();
+
+            ivZhongli.setVisibility(View.INVISIBLE);
+            btnNewGame.setVisibility(View.VISIBLE);
+            btnBack.setVisibility(View.VISIBLE);
+            textView4.setVisibility(View.INVISIBLE);
+            tvGuessDisplay.setVisibility(View.INVISIBLE);
+
+            textView8.setText("LOOKS LIKE YOU DID NOT GUESS THE NUMBER");
+            textView9.setText("NUMBER OF TRIES: " + numberTries + "/" + maxTries);
+        }
+        tvGuessDisplay.setText("GUESS REMAINING: " + (maxTries - numberTries));
     }
 
     private void newGame(int DIFF) {
         int MAX_NUMBER = random.nextInt(DIFF);
         numberToFind = random.nextInt(MAX_NUMBER);
-        tvHint.setText("?");
         etInput.setText("");
         numberTries = 0;
     }
-
 }
 
 

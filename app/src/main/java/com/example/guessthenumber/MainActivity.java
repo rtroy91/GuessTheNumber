@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -26,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MediaPlayer music = MediaPlayer.create(MainActivity.this, R.raw.game_audio);
+        music.start();
 
         etName = (EditText) findViewById(R.id.etName);
         etGender = (EditText) findViewById(R.id.etGender);
@@ -102,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
+                        finishAffinity();
                     }
                 });
                 builder.show();

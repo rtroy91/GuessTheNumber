@@ -2,29 +2,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp"
+    android:layout_margin="15dp"
     android:gravity="center_horizontal|center_vertical"
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="333dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="16dp"
-        android:text="CONGRATULATIONS"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:text="CONGRATULATIONS!"
         android:textAlignment="center"
         android:textColor="#09638C"
         android:textSize="34sp"
         android:textStyle="bold" />
 
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="match_parent"
+        android:layout_height="152dp"
+        app:srcCompat="@drawable/congrats_image" />
+
     <TextView
-        android:id="@+id/textView8"
-        android:layout_width="279dp"
+        android:id="@+id/tvDisplay1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="NUMBER OF TRIES: "
+        android:text="YOU'VE CORRECTLY GUESSED THE NUMBER"
         android:textAlignment="center"
         android:textColor="#09638C"
-        android:textSize="24sp"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
 </LinearLayout>

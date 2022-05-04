@@ -15,7 +15,6 @@
     <TextView
         android:layout_width="175dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:text="TOO LOW"
         android:textAlignment="center"
         android:textColor="#8C0909"
