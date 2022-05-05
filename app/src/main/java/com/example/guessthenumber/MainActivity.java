@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -27,9 +26,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        MediaPlayer music = MediaPlayer.create(MainActivity.this, R.raw.game_audio);
-        music.start();
 
         etName = (EditText) findViewById(R.id.etName);
         etGender = (EditText) findViewById(R.id.etGender);
@@ -68,14 +64,16 @@ public class MainActivity extends AppCompatActivity {
                 mode = tvDiffVal.getText().toString();
                 start.putExtra("DIFFICULTY", mode);
 
+
+
                 if(name.equals("")){
                     Toast toast = Toast.makeText(MainActivity.this, "Please Type Your Name", Toast.LENGTH_SHORT);
                     toast.show();
-                }else if(gender.equals("")){
-                    Toast toast = Toast.makeText(MainActivity.this, "Please Type Your Gender", Toast.LENGTH_SHORT);
-                    toast.show();
-                }else if(gender.compareToIgnoreCase("Male") > 0 && gender.compareToIgnoreCase("Female") > 0){
+                }else if(gender.compareToIgnoreCase("Male") > 0 && gender.compareToIgnoreCase("Female") > 0) {
                     Toast toast = Toast.makeText(MainActivity.this, "Wrong Gender Input", Toast.LENGTH_SHORT);
+                    toast.show();
+                }else if(gender.equals("")) {
+                    Toast toast = Toast.makeText(MainActivity.this, "Please Type Your Gender", Toast.LENGTH_SHORT);
                     toast.show();
                 }else if (mode.equals("")) {
                     Toast toast = Toast.makeText(MainActivity.this, "Please Choose Difficulty", Toast.LENGTH_SHORT);

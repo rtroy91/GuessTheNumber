@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +29,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnGuess, btnNewGame, btnBack;
     private int numberToFind, numberTries, maxTries;
     private ImageView ivZhongli;
+    MediaPlayer music, congrats, failed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,23 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             tvDisplayDiff.setText("EXTREME");
             tvDisplayDiff.setTextColor(Color.parseColor("#B22727"));
         }
+        music = MediaPlayer.create(GameActivity.this, R.raw.game_audio);
+        music.start();
+    }
+
+    //function for resetting activity using the back button in nav bar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                music.stop();
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -133,7 +152,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
             textView8.setText("YAY! YOU'VE GUESSED THE NUMBER CORRECTLY!");
             textView9.setText("NUMBER OF TRIES: " + numberTries + "/" + maxTries);
+            congrats = MediaPlayer.create(GameActivity.this, R.raw.congrats_audio);
+            congrats.start();
 
+            //background music stop if success
+            music.stop();
             int MAX_DIFF = Integer.parseInt(tvMax.getText().toString());
             newGame(MAX_DIFF);
 
@@ -163,6 +186,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
             textView8.setText("LOOKS LIKE YOU DID NOT GUESS THE NUMBER");
             textView9.setText("NUMBER OF TRIES: " + numberTries + "/" + maxTries);
+            //background music stop if failed
+            music.stop();
+            failed = MediaPlayer.create(GameActivity.this, R.raw.failed_audio);
+            failed.start();
+
         }
         tvGuessDisplay.setText("GUESS REMAINING: " + (maxTries - numberTries));
     }
@@ -173,6 +201,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         etInput.setText("");
         numberTries = 0;
     }
+
 }
 
 
