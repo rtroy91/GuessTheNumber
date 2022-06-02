@@ -1,4 +1,4 @@
-package com.example.guessthenumber;
+package com.example.group02midterm;
 
 import androidx.appcompat.app.AppCompatActivity;
 

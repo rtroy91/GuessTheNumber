@@ -1,4 +1,4 @@
-package com.example.guessthenumber;
+package com.example.group02midterm;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -65,20 +65,19 @@ public class MainActivity extends AppCompatActivity {
                 start.putExtra("DIFFICULTY", mode);
 
 
-
-                if(name.equals("")){
+                if (name.equals("")) {
                     Toast toast = Toast.makeText(MainActivity.this, "Please Type Your Name", Toast.LENGTH_SHORT);
                     toast.show();
-                }else if(gender.compareToIgnoreCase("Male") > 0 && gender.compareToIgnoreCase("Female") > 0) {
+                } else if (gender.contains("abcdefghijklmnopqrstuvwxyz")) {
                     Toast toast = Toast.makeText(MainActivity.this, "Wrong Gender Input", Toast.LENGTH_SHORT);
                     toast.show();
-                }else if(gender.equals("")) {
+                } else if (gender.equals("")) {
                     Toast toast = Toast.makeText(MainActivity.this, "Please Type Your Gender", Toast.LENGTH_SHORT);
                     toast.show();
-                }else if (mode.equals("")) {
+                } else if (mode.equals("")) {
                     Toast toast = Toast.makeText(MainActivity.this, "Please Choose Difficulty", Toast.LENGTH_SHORT);
                     toast.show();
-                } else {
+                } else if (gender.equalsIgnoreCase("Male") || gender.equalsIgnoreCase("Female")) {
                     startActivity(start);
                 }
             }

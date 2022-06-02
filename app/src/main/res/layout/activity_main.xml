@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:scrollbarAlwaysDrawVerticalTrack="true"
     android:tooltipText="Exit"
-    tools:context=".MainActivity">
+    tools:context="com.example.group02midterm.MainActivity">
 
     <ImageView
         android:id="@+id/imageView3"
@@ -89,8 +89,8 @@
         android:drawablePadding="10dp"
         android:ems="10"
         android:hint="Male or Female"
-        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         android:inputType="text"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         android:maxLength="10"
         android:paddingStart="10dp"
         android:paddingEnd="12dp"

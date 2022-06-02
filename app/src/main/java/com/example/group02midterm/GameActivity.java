@@ -1,4 +1,4 @@
-package com.example.guessthenumber;
+package com.example.group02midterm;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Handler;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +23,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     final Random random = new Random();
 
-    private TextView tvGuessDisplay, tvName, tvInt, tvMax, tvDisplayDiff, textView4, textView8, textView9;
+    private TextView tvGuessDisplay, tvName, tvInt, tvMax, tvDisplayDiff, tvInstruction, textView4, textView8, textView9;
     private EditText etInput;
     private Button btnGuess, btnNewGame, btnBack;
     private int numberToFind, numberTries, maxTries;
@@ -39,6 +38,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         textView4 = (TextView) findViewById(R.id.textView4);
         textView8 = (TextView) findViewById(R.id.textView8);
         textView9 = (TextView) findViewById(R.id.textView9);
+        tvInstruction = (TextView) findViewById(R.id.tvInstruction);
         tvGuessDisplay = (TextView) findViewById(R.id.tvGuessDisplay);
         tvDisplayDiff = (TextView) findViewById(R.id.tvDisplayDiff);
         tvName = (TextView) findViewById(R.id.tvName);
@@ -72,18 +72,22 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         if (MAX_DIFF == 50) {
             maxTries = 25;
+            tvInstruction.setText("YOU ONLY HAVE "+maxTries+ " GUESSES!");
             tvDisplayDiff.setText("EASY");
             tvDisplayDiff.setTextColor(Color.parseColor("#2980B9"));
         } else if (MAX_DIFF == 250) {
             maxTries = 20;
+            tvInstruction.setText("YOU ONLY HAVE "+maxTries+ " GUESSES!");
             tvDisplayDiff.setText("NORMAL");
             tvDisplayDiff.setTextColor(Color.parseColor("#229954"));
         } else if (MAX_DIFF == 500) {
             maxTries = 15;
+            tvInstruction.setText("YOU ONLY HAVE "+maxTries+ " GUESSES!");
             tvDisplayDiff.setText("HARD");
             tvDisplayDiff.setTextColor(Color.parseColor("#D35400"));
         } else {
             maxTries = 10;
+            tvInstruction.setText("YOU ONLY HAVE "+maxTries+ " GUESSES!");
             tvDisplayDiff.setText("EXTREME");
             tvDisplayDiff.setTextColor(Color.parseColor("#B22727"));
         }
@@ -112,6 +116,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             if (etInput.getText().toString().trim().isEmpty()) {
                 Toast.makeText(this, "Please Input a Number", Toast.LENGTH_SHORT).show();
             } else {
+                tvInstruction.setVisibility(View.INVISIBLE);
                 validate();
             }
         }
@@ -138,7 +143,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             public void run() {
                 dialog.dismiss();
             }
-        }, 2000);
+        }, 2500);
 
         if (n == numberToFind) {
             dialog.setContentView(R.layout.dialog_congrats);
@@ -149,6 +154,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             btnBack.setVisibility(View.VISIBLE);
             textView4.setVisibility(View.INVISIBLE);
             tvGuessDisplay.setVisibility(View.INVISIBLE);
+            btnGuess.setVisibility(View.INVISIBLE);
+            etInput.setVisibility(View.INVISIBLE);
 
             textView8.setText("YAY! YOU'VE GUESSED THE NUMBER CORRECTLY!");
             textView9.setText("NUMBER OF TRIES: " + numberTries + "/" + maxTries);
@@ -183,9 +190,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             btnBack.setVisibility(View.VISIBLE);
             textView4.setVisibility(View.INVISIBLE);
             tvGuessDisplay.setVisibility(View.INVISIBLE);
+            btnGuess.setVisibility(View.INVISIBLE);
+            etInput.setVisibility(View.INVISIBLE);
 
             textView8.setText("LOOKS LIKE YOU DID NOT GUESS THE NUMBER");
-            textView9.setText("NUMBER OF TRIES: " + numberTries + "/" + maxTries);
+            textView9.setText("NUMBER OF TRIES: " + numberTries  + "/" + maxTries);
             //background music stop if failed
             music.stop();
             failed = MediaPlayer.create(GameActivity.this, R.raw.failed_audio);
@@ -199,7 +208,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         int MAX_NUMBER = random.nextInt(DIFF);
         numberToFind = random.nextInt(MAX_NUMBER);
         etInput.setText("");
-        numberTries = 0;
+        numberTries=0;
     }
 
 }

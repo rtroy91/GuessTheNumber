@@ -6,7 +6,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.guessthenumber"
+        applicationId "com.example.group02midterm"
         minSdk 29
         targetSdk 32
         versionCode 1
